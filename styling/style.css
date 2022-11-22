@@ -1,0 +1,32 @@
+  body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: #F7E7CE;
+    color:#A30052;
+  }
+
+  h1 {
+    font-size: 5rem;
+    color: #A30052;
+  }
+
+  section {
+    background-color: #DDCEB5;
+  }
+
+  section img {
+    width: 460px;
+    max-height: 26rem;
+    border: 5px solid transparent;
+  }
+
+  section img:hover {
+    border: 5px solid #A6B9D0;
+  }
+
+  li {
+    margin: .5rem;
+  }
+
+  button {
+    height: 3rem;
+  }

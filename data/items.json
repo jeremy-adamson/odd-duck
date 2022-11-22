@@ -1,0 +1,78 @@
+[
+    {
+        "name" : "bag",
+        "src" : "./img/bag.jpg"
+    },
+    {
+        "name" : "banana",
+        "src" : "./img/banana.jpg"
+    },
+    {
+        "name" : "bathroom",
+        "src" : "./img/bathroom.jpg"
+    },
+    {
+        "name" : "boots",
+        "src" : "./img/boots.jpg"
+    },
+    {
+        "name" : "breakfast",
+        "src" : "./img/breakfast.jpg"
+    },
+    {
+        "name" : "bubblegum",
+        "src" : "./img/bubblegum.jpg"
+    },
+    {
+        "name" : "chair",
+        "src" : "./img/chair.jpg"
+    },
+    {
+        "name" : "cthulhu",
+        "src" : "./img/cthulhu.jpg"
+    },
+    {
+        "name" : "dog-duck",
+        "src" : "./img/dog-duck.jpg"
+    },
+    {
+        "name" : "dragon",
+        "src" : "./img/dragon.jpg"
+    },
+    {
+        "name" : "pen",
+        "src" : "./img/pen.jpg"
+    },
+    {
+        "name" : "pet-sweep",
+        "src" : "./img/pet-sweep.jpg"
+    },
+    {
+        "name" : "scissors",
+        "src" : "./img/scissors.jpg"
+    },
+    {
+        "name" : "shark",
+        "src" : "./img/shark.jpg"
+    },
+    {
+        "name" : "sweep",
+        "src" : "./img/sweep.png"
+    },
+    {
+        "name" : "tauntaun",
+        "src" : "./img/tauntaun.jpg"
+    },
+    {
+        "name" : "unicorn",
+        "src" : "./img/unicorn.jpg"
+    },
+    {
+        "name" : "water-can",
+        "src" : "./img/water-can.jpg"
+    },
+    {
+        "name" : "wine-glass",
+        "src" : "./img/wine-glass.jpg"
+    }
+]
