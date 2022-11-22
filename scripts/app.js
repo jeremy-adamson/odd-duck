@@ -111,7 +111,7 @@ function handleItemClick(event){
         }
     }
 
-    renderItem();
+    loadCurrentItems();
 }
 
 // Constructor for oddDuckItem object
