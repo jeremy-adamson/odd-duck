@@ -79,6 +79,7 @@ function returnRandomIndexes(){
     return returnArray;
 }
 
+// Stages and displays a group of items to be clicked on
 function loadCurrentItems(){
     let indexArray = returnRandomIndexes();
 
@@ -95,7 +96,7 @@ function loadCurrentItems(){
     }
 }
 
-function renderItem(){
+function run(){
     loadCurrentItems();
 }
 
@@ -134,7 +135,7 @@ function viewResults(event){
 
 initilizeImageSpaces();
 initilizeItemArray();
-renderItem();
+run();
 
 let resultsButton = document.getElementById('results');
 resultsButton.addEventListener('click', viewResults);
