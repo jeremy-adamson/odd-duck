@@ -17,6 +17,7 @@ let currentLineup = [];
 let itemArray = [];
 let totalClicks = 0;
 
+
 // Returns the number of question to be asked
 // Currently a static amount but can easily be adjusted to prompt the user
 function getNumberOfQuestions(){
@@ -69,13 +70,24 @@ function returnRandomIndexes(){
         let newIndex = getRandomNumber();
         let outlierFlag = checkIfOutlier(newIndex);
 
-        while (returnArray.includes(newIndex) || outlierFlag) {
+        console.log(selectionQueue.contains(newIndex));
+
+        while (selectionQueue.contains(newIndex) || outlierFlag) {
             newIndex = getRandomNumber();
             outlierFlag = checkIfOutlier(newIndex);
         }
+        selectionQueue.queue(newIndex);
         returnArray[i] = newIndex;
     }
+    
+    if(selectionQueue.maxLength === selectionQueue.length){
+        selectionQueue.dequeue(numberPerPage);
+    }
 
+    // while (selectionQueue.length > numberPerPage){
+       
+    //     selectionQueue.dequeue(numberPerPage);
+    // }
     return returnArray;
 }
 
@@ -114,6 +126,104 @@ function handleItemClick(event){
     loadCurrentItems();
 }
 
+class Node {
+    constructor(data){
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    constructor(){
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+    }
+
+    queue(data){
+        if (this.length === 0){
+            this.head = new Node(data);
+            this.tail = this.head;
+        } else {
+            this.tail.next = new Node(data);
+            this.tail = this.tail.next;
+        }
+        this.length++;
+    }
+
+    dequeue(){
+        if (this.length === 0){
+            return null;
+        } else {
+            let data = this.head.data;
+            this.head = this.head.next;
+            this.length--;
+            return data;
+        }
+    }
+
+    contains(data){
+        if (this.length === 0){
+            return false;
+        }
+        let currentNode = this.head;
+        while (currentNode.next) {
+            if (data === currentNode.data) {
+                return true;
+            }
+            currentNode = currentNode.next;
+        }
+        if (data === currentNode.data) {
+            return true;
+        }
+
+        return false;
+    }
+}
+
+class CircularArray{
+    constructor(maxLength){
+        this.data = new Array(maxLength);
+        this.head = 0;
+        this.length = 0;
+        this.maxLength = maxLength;
+    }
+
+    queue(data){
+        if (this.length === this.maxLength){
+            console.log(`WARNING: Exceeding circular array's maxmimum capacity`);
+            return;
+        }
+
+        this.data[(this.head + this.length)%this.maxLength] = data;
+        this.length++;
+    }
+
+    dequeue(number = 1){
+        if (this.length < number){
+            console.log(`WARNING: Array does not contain enough elements to dequeue`);
+            return null;
+        }
+
+        let oldHead = this.head;
+        this.length -= number;
+        this.head += number;
+        this.head %= this.maxLength;
+        return this.data[oldHead];
+    }
+
+    contains(data){
+        for (let i = 0; i < this.length; i++){
+            if (this.data[(this.head + i)%this.maxLength] === data){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+
+
 // Constructor for oddDuckItem object
 function oddDuckItem(item){
     this.name = item.name;
@@ -132,6 +242,9 @@ function viewResults(event){
     resultsButton.removeEventListener('click', viewResults);
 }
 
+let selectionQueue = new CircularArray(numberPerPage * 2);
+
+//let selectionQueue = new LinkedList();
 
 initilizeImageSpaces();
 initilizeItemArray();
