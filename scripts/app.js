@@ -87,6 +87,7 @@ function run(){
     loadCurrentItems();
 }
 
+// Logs the result and calls for a new set to be generated if the maximum number of questions has not been reached
 function handleItemClick(event){
     totalClicks++;
     itemArray[event.target.id].clicks++;
@@ -111,6 +112,7 @@ function handleItemClick(event){
     }
 }
 
+// Triggers rendering of charts and saving the collected data to local storage upon button click
 function viewResults(event){
     renderChart();
     let resultsButton = document.getElementById(`results`);
@@ -118,10 +120,12 @@ function viewResults(event){
     localStorage.setItem(`oddDuckStorage`, JSON.stringify(itemArray));
 }
 
+// Clears local storage
 function resetResults(event){
     localStorage.clear();
 }
 
+// Constructs a circular array of a fixed size
 class CircularArray{
     constructor(maxLength){
         this.data = new Array(maxLength);
@@ -130,6 +134,7 @@ class CircularArray{
         this.maxLength = maxLength;
     }
 
+    // Adds an element to the end of the array
     queue(data){
         if (this.length === this.maxLength){
             console.log(`WARNING: Exceeding circular array's maxmimum capacity`);
@@ -140,6 +145,7 @@ class CircularArray{
         this.length++;
     }
 
+    // Removes 'number' elements from the front of the array and returns the first
     dequeue(number = 1){
         if (this.length < number){
             console.log(`WARNING: Array does not contain enough elements to dequeue`);
@@ -153,6 +159,7 @@ class CircularArray{
         return this.data[oldHead];
     }
 
+    // Searches the array for a given value and returns a boolean result
     contains(data){
         for (let i = 0; i < this.length; i++){
             if (this.data[(this.head + i)%this.maxLength] === data){
@@ -172,6 +179,7 @@ function oddDuckItem(item){
     this.views = 0;
 }
 
+// Constructs an object of collected 'oddDuckItem' data to be used with Chart.js
 function chartDataSet(){
     this.itemName = [];
     this.itemClicks = [];
@@ -180,6 +188,7 @@ function chartDataSet(){
     this.itemColor = [];
     this.itemBorderColor = [];
 
+    // Push method adds an additional oddDuckItem into the data
     this.push = function(oddDuck){
         this.itemName.push(oddDuck.name);
         this.itemClicks.push(oddDuck.clicks);
@@ -197,14 +206,12 @@ function chartDataSet(){
         this.itemBorderColor.push(`rgb(${[red, green, blue]})`);
     }
 
+    // Normalizes the percents so that the sum of all percentages adds to 100%
     this.normalizePercents = function(){
-        // normalizedPercents added
         let summation = 0;
         for (let i = 0; i < this.itemPercent.length; i++){
             summation += this.itemPercent[i];
         }
-
-        console.log(summation);
 
         for (let i = 0; i < this.itemPercent.length; i++){
             if (summation === 0) {
@@ -216,7 +223,7 @@ function chartDataSet(){
         }
     }
 
-    // Selection Sort
+    // Selection Sort based on passed argument
     this.sortBy = function(sortingBy = `itemPercent`){
         for (let i = 0; i < this[sortingBy].length; i++){
             let minimumIndex = i;
@@ -236,6 +243,12 @@ function chartDataSet(){
     }
 }
 
+// Renders a bar and doughnut chart from chartDataSet object
+
+  /* refer to Chart.js > Chart Types > Bar Chart: 
+  https://www.chartjs.org/docs/latest/charts/bar.html 
+  and refer to Chart.js > Getting Started > Getting Started:
+  https://www.chartjs.org/docs/latest/getting-started/ */
 function renderChart(){
     let dataSet = new chartDataSet();
 
@@ -311,6 +324,7 @@ function renderChart(){
 
 let selectionQueue = new CircularArray(numberPerPage * 2);
 
+// Loads past data from local storage (if it exists)
 if (localStorage.getItem(`oddDuckStorage`)){
     itemArray = JSON.parse(localStorage.getItem(`oddDuckStorage`));
     for (let i = 0; i < itemArray.length; i++){
