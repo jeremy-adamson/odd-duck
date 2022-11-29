@@ -267,9 +267,8 @@ function renderChart(){
         }, {
             label: 'Number of Views',
             data: dataSet.itemViews,
-            backgroundColor: dataSet.itemColor,
             borderColor: dataSet.itemBorderColor,
-            borderWidth: 1
+            borderWidth: .5
         }]
     };
 
@@ -292,7 +291,10 @@ function renderChart(){
             plugins: {
                 title: {
                     display: true,
-                    text: `Clicks and Views of the Items`
+                    text: `Clicks and Views of the Items`,
+                    font:{
+                        size: 24
+                    }
                 }
             },
             scales: {
@@ -310,7 +312,10 @@ function renderChart(){
             plugins: {
                 title: {
                     display: true,
-                    text: `Percentage item was picked when it was an option`
+                    text: `Percentage item was picked when it was an option`,
+                    font:{
+                        size: 24
+                    }
                 }
             }
         }
@@ -336,12 +341,6 @@ if (localStorage.getItem(`oddDuckStorage`)){
 
 initilizeImageSpaces();
 run();
-
-
-
-
-
-
 
 // ***********************
 // *** Extra Code ********
