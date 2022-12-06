@@ -97,15 +97,23 @@ function handleItemClick(event){
             currentLineup[i].removeEventListener('click', handleItemClick);
         }
 
+        let divClear = document.getElementById("content")
+        divClear.innerHTML = '';
+
         let buttonsToAppend = document.getElementById(`buttons`);
         let resultsButton = document.createElement(`button`);
         resultsButton.addEventListener('click', viewResults);
         resultsButton.id = `results`;
         resultsButton.innerText = `View Results`;
+        let newSetButton = document.createElement(`button`);
+        newSetButton.addEventListener('click', newSet);
+        newSetButton.id = `newSet`;
+        newSetButton.innerText = `New Survey Set`;
         let resetButton = document.createElement(`button`);
         resetButton.addEventListener('click', resetResults);
         resetButton.innerText = `Reset Results`;
         buttonsToAppend.appendChild(resultsButton);
+        buttonsToAppend.appendChild(newSetButton);
         buttonsToAppend.appendChild(resetButton);
     } else {
         loadCurrentItems();
@@ -120,9 +128,14 @@ function viewResults(event){
     localStorage.setItem(`oddDuckStorage`, JSON.stringify(itemArray));
 }
 
+function newSet(event){
+    location.reload();
+}
+
 // Clears local storage
 function resetResults(event){
     localStorage.clear();
+    location.reload();
 }
 
 // Constructs a circular array of a fixed size
